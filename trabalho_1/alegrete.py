@@ -9,6 +9,7 @@ def compute_mse(b, w, data):
         [14, 4],
         [2, 4]
     ]
+
     m = len(data)
 
     quadratic_error = 0.0
@@ -21,6 +22,8 @@ def compute_mse(b, w, data):
         sum += pow((h_theta - y), 2)
 
     quadratic_error = (1/m)*sum
+
+    # print(quadratic_error)
 
     """
     Calcula o erro quadratico medio
@@ -36,10 +39,27 @@ def compute_mse(b, w, data):
 
 def step_gradient(b, w, data, alpha):
 
-    quadratic_error_derivative = compute_mse(b, w, data)
+    #quadratic_error_derivative = compute_mse(b, w, data)
 
-    #b = b - alpha*quadratic_error
-    #w = w - alpha*quadratic_error
+    m = len(data)
+
+    sum_b = 0.0
+    sum_w = 0.0
+
+    for index, row in enumerate(data):
+
+        x = row[0]
+        y = row[1]
+
+        h_theta = b + w*x
+        sum_b += 2*(h_theta - y)
+        sum_w += 2*x*(h_theta - y)
+
+    b = b - alpha*((1/m)*sum_b)
+    w = w - alpha*((1/m)*sum_w)
+
+    # print(b)
+    # print(w)
     
     return b, w
     """
@@ -54,14 +74,25 @@ def step_gradient(b, w, data, alpha):
 
 
 def fit(data, b, w, alpha, num_iterations):
-    list_b = []
-    list_w = []
+
+    list_b = [0]*num_iterations
+    list_w = [0]*num_iterations
+    
     for i in range(num_iterations):
 
-        gradient = step_gradient(b, w, data, alpha)
+        b, w = step_gradient(b, w, data, alpha)
+        list_b[i] = b
+        list_w[i] = w
 
-    
-    return list_b, list_w
+        print(b)
+        print(w)
+
+
+
+    # print(list_b)
+    # print(list_w)
+
+    return [list_b], list_w
 
     """
     Para cada época/iteração, executa uma atualização por descida de
@@ -80,4 +111,25 @@ def fit(data, b, w, alpha, num_iterations):
 
     raise NotImplementedError  # substituir pelo seu codigo
 
-#compute_mse(0,0,0)
+
+# b = 2
+# w = 1
+# data = [
+#         [11, 2],
+#         [14, 4],
+#         [2, 4]
+#     ]
+
+# alpha = 0.1
+# compute = compute_mse(b,w,data)
+# gradiente = step_gradient(b, w, data, alpha)
+
+# dataset = np.genfromtxt('alegrete.csv', delimiter=',')
+
+# b_history, w_history = fit(
+#     dataset, b=0, w=0,
+#     alpha=0.1, num_iterations=100
+# )
+
+# print(b_history)
+# print(w_history)
