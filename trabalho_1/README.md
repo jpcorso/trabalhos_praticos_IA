@@ -1,5 +1,5 @@
 # TRABALHO 1 
-Arthur Ferreira Ely, João Pedro Licks Corso, Juliana Rodrigues de Vargs
+Arthur Ferreira Ely, João Pedro Licks Corso, Juliana Rodrigues de Vargas
 
 ## Imprementação Regressão Linear
 
