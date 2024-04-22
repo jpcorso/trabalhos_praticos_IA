@@ -1,7 +1,7 @@
 # TRABALHO 1: Regressão Linear e TensorFlow 
 Arthur Ferreira Ely, João Pedro Licks Corso, Juliana Rodrigues de Vargas
 
-## Imprementação Regressão Linear
+## Implementação Regressão Linear
 
 ### Valores iniciais
 
