@@ -4,12 +4,6 @@ import sympy as sp
 
 def compute_mse(b, w, data):
 
-    data = [
-        [11, 2],
-        [14, 4],
-        [2, 4]
-    ]
-
     m = len(data)
 
     quadratic_error = 0.0
@@ -55,6 +49,7 @@ def step_gradient(b, w, data, alpha):
         sum_b += 2*(h_theta - y)
         sum_w += 2*x*(h_theta - y)
 
+
     b = b - alpha*((1/m)*sum_b)
     w = w - alpha*((1/m)*sum_w)
 
@@ -84,15 +79,12 @@ def fit(data, b, w, alpha, num_iterations):
         list_b[i] = b
         list_w[i] = w
 
-        print(b)
-        print(w)
-
 
 
     # print(list_b)
     # print(list_w)
 
-    return [list_b], list_w
+    return list_b, list_w
 
     """
     Para cada época/iteração, executa uma atualização por descida de
