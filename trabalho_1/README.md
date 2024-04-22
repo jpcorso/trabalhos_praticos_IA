@@ -1,15 +1,15 @@
-#TRABALHO 1 
+# TRABALHO 1 
 Arthur Ferreira Ely, João Pedro Licks Corso, Juliana Rodrigues de Vargs
 
-##Imprementação Regressão Linear
+## Imprementação Regressão Linear
 
-###Valores iniciais
+### Valores iniciais
 
-###MSE
+### MSE
 
 
-##TensorFlow
+## TensorFlow
 
-###Analise dos datasets
+### Analise dos datasets
 
-###Conclusões 
+### Conclusões 
