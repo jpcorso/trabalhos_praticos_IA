@@ -66,6 +66,7 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
 
 **2) Qual a maior acurácia obtida em cada dataset e quais mudanças fizeram a performance melhorar (ou pior, caso tenha ocorrido piora em relação a alguma performance já avaliada).**
 
+Aqui, pode-se notar a gradativa melhora na acurácia da tarefa de classificação conforme a complexidade da rede aumentar quando mudamos o dataset para um dataset com mais classes ou características mais complexas. Para a última rede, tentamos adicionar normalizações e dropouts para diversificar as camadas buscando melhoria na acurácia, mas essa melhoria não foi vista quando aplicamos os dados de teste.
 
 - Small/Simple network 
 
