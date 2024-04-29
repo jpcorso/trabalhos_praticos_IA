@@ -70,17 +70,24 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
             Tamanho da janela: (3, 3)
             Número de filtros: 32
             Função de ativação: ReLU
+  
       - Camada de Pooling (MaxPooling2D):
             Tamanho da janela: (2, 2)
+  
       - Camada de Achatamento (Flatten):
             Não há parâmetros a serem ajustados.
+  
       - Camada Densa (Fully Connected):
             Número de neurônios: 64
             Função de ativação: ReLU
+  
       - Camada de Saída (Densa):
             Número de neurônios: Número de classes
             Função de ativação: Softmax (para classificação multiclasse)
+  
 - Medium network
+
+ ```
      - Camada Convolucional 1:
             Tamanho da janela: (3, 3)
             Número de filtros: 32
@@ -104,8 +111,10 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
      - Camada de Saída (Densa):
             Número de neurônios: Número de classes
             Função de ativação: Softmax (para classificação multiclasse)
+```
 
 - Large network
+```
       - Camada de Pooling 1 (MaxPooling2D):
             Tamanho da janela: (2, 2)
       - Camada Convolucional 2: 
@@ -135,7 +144,10 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
       - Camada de Saída (Densa):
             Número de neurônios: Número de classes
             Função de ativação: Softmax
+
+```
 - Complex network
+```
       - Camada Convolucional 1: 
             Tamanho da janela: (3, 3)
             Número de filtros: 32
@@ -181,8 +193,9 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
       - Camada de Saída (Densa):
             Número de neurônios: Número de classes
             Função de ativação: Softmax
-
+```
 - Very complex network
+```
       - Camada Convolucional 1: 
             Tamanho da janela: (3, 3)
             Número de filtros: 32
@@ -229,7 +242,7 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
       - Camada de Saída (Densa):
             Número de neurônios: Número de classes
             Função de ativação: Softmax
-
+```
 
 
 |Dataset        | Melhor Acurácia | Topologia         | Pior Acurácia| Topologia |
