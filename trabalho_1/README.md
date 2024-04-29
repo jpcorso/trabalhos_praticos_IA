@@ -64,12 +64,41 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
 **2) Qual a maior acurácia obtida em cada dataset e quais mudanças fizeram a performance melhorar (ou pior, caso tenha ocorrido piora em relação a alguma performance já avaliada).**
 
 
-|Dataset| Acurácia | Melhor Desempenho | Pior Desempenho| Mudanças na performance |
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-|MNIST          |xx,xx%         |X topologia    |X topologia    |Alteramos tal e tal e tal e tal coisa e aí a performance ficou muito diferente que a performance anterior|
-|Fashion MNIST  |xx,xx%         |X topologia    |X topologia    |Alteramos tal e tal e tal e tal coisa e aí a performance ficou muito diferente que a performance anterior
-|CIFAR-10       |xx,xx%         |X topologia    |X topologia    |Alteramos tal e tal e tal e tal coisa e aí a performance ficou muito diferente que a performance anterior
-|CIFAR-100      |xx,xx%         |X topologia    |X topologia    |Alteramos tal e tal e tal e tal coisa e aí a performance ficou muito diferente que a performance anterior
+- Small network 
+      - 32 filtros, janela (3, 3)
+      - Janela MaxPooling (2,2)
+      - 1 camada de Convolução, 1 camada de MaxPooling, 1 camada de Flatten e 2 camadas Dense. 
+- Medium network
+      - 2 camadas de Convolução, 2 camadas de MaxPooling, 1 camada de Flatten e 3 camadas Dense. 
+- Large network
+      - 3 camadas de Convolução, 3 camadas de MaxPooling, 1 camada de Flatten e 4 camadas Dense. 
+- Complex network
+      - 4 camadas de Convolução, 4 camadas de MaxPooling, 1 camada de Flatten e 5 camadas Dense. 
+- Very complex network
+      - 4 camadas de Convolução, 4 camadas de MaxPooling, 1 camada de Flatten, Normalização e 3 camadas Dense
+
+```
+{'mnist': 
+ {'get_small_network': {'time': 80.12140941619873, 'acc': '97.84%'},
+  'get_medium_network': {'time': 98.56405687332153, 'acc': '98.85%'},
+  'get_large_network': {'time': 125.50758576393127, 'acc': '98.90%'},
+  'get_complex_network': {'time': 244.90023851394653, 'acc': '99.30%'},
+  'get_very_complex_network': {'time': 237.25664901733398, 'acc': '99.08%'}},
+ 'fashion_mnist': 
+ {'get_small_network': {'time': 76.64522123336792,'acc': '88.94%'},
+  'get_medium_network': {'time': 97.64616894721985, 'acc': '89.17%'},
+  'get_large_network': {'time': 121.68075728416443, 'acc': '88.76%'},
+  'get_complex_network': {'time': 239.64841890335083, 'acc': '91.09%'},
+  'get_very_complex_network': {'time': 237.1201777458191, 'acc': '90.82%'}},
+```
+
+|Dataset        | Melhor Acurácia | Topologia         | Pior Acurácia| Topologia |
+| ------------- | -------------   | -------------     | ------------- | ------------- |
+|MNIST          |99,30%           |complex_network    |97,84%         |small_network|
+|Fashion MNIST  |91,09%           |complex_network    |88,76%         |large_network|
+|CIFAR-10       |xx,xx%           |X topologia        |X topologia    |Alteramos tal e tal e tal e tal coisa e aí a performance ficou muito diferente que a performance anterior
+|CIFAR-100      |xx,xx%           |X topologia        |X topologia    |Alteramos tal e tal e tal e tal coisa e aí a performance ficou muito diferente que a performance anterior
+
 
 
 
