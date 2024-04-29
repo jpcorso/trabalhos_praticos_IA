@@ -65,32 +65,172 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
 
 
 - Small network 
-      - 32 filtros, janela (3, 3)
-      - Janela MaxPooling (2,2)
-      - 1 camada de Convolução, 1 camada de MaxPooling, 1 camada de Flatten e 2 camadas Dense. 
-- Medium network
-      - 2 camadas de Convolução, 2 camadas de MaxPooling, 1 camada de Flatten e 3 camadas Dense. 
-- Large network
-      - 3 camadas de Convolução, 3 camadas de MaxPooling, 1 camada de Flatten e 4 camadas Dense. 
-- Complex network
-      - 4 camadas de Convolução, 4 camadas de MaxPooling, 1 camada de Flatten e 5 camadas Dense. 
-- Very complex network
-      - 4 camadas de Convolução, 4 camadas de MaxPooling, 1 camada de Flatten, Normalização e 3 camadas Dense
 
-```
-{'mnist': 
- {'get_small_network': {'time': 80.12140941619873, 'acc': '97.84%'},
-  'get_medium_network': {'time': 98.56405687332153, 'acc': '98.85%'},
-  'get_large_network': {'time': 125.50758576393127, 'acc': '98.90%'},
-  'get_complex_network': {'time': 244.90023851394653, 'acc': '99.30%'},
-  'get_very_complex_network': {'time': 237.25664901733398, 'acc': '99.08%'}},
- 'fashion_mnist': 
- {'get_small_network': {'time': 76.64522123336792,'acc': '88.94%'},
-  'get_medium_network': {'time': 97.64616894721985, 'acc': '89.17%'},
-  'get_large_network': {'time': 121.68075728416443, 'acc': '88.76%'},
-  'get_complex_network': {'time': 239.64841890335083, 'acc': '91.09%'},
-  'get_very_complex_network': {'time': 237.1201777458191, 'acc': '90.82%'}},
-```
+      - Camada Convolucional:
+            Tamanho da janela: (3, 3)
+            Número de filtros: 32
+            Função de ativação: ReLU
+      - Camada de Pooling (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada de Achatamento (Flatten):
+            Não há parâmetros a serem ajustados.
+      - Camada Densa (Fully Connected):
+            Número de neurônios: 64
+            Função de ativação: ReLU
+      - Camada de Saída (Densa):
+            Número de neurônios: Número de classes
+            Função de ativação: Softmax (para classificação multiclasse)
+- Medium network
+     - Camada Convolucional 1:
+            Tamanho da janela: (3, 3)
+            Número de filtros: 32
+            Função de ativação: ReLU
+     - Camada de Pooling 1 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+     - Camada Convolucional 2:
+            Tamanho da janela: (3, 3)
+            Número de filtros: 64
+            Função de ativação: ReLU
+     - Camada de Pooling 2 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+     - Camada de Achatamento (Flatten):
+            Não há parâmetros a serem ajustados.
+     - Camada Densa 1 (Fully Connected):
+            Número de neurônios: 128
+            Função de ativação: ReLU
+     - Camada Densa 2 (Fully Connected):
+            Número de neurônios: 64
+            Função de ativação: ReLU
+     - Camada de Saída (Densa):
+            Número de neurônios: Número de classes
+            Função de ativação: Softmax (para classificação multiclasse)
+
+- Large network
+      - Camada de Pooling 1 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada Convolucional 2: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 64
+            Função de ativação: ReLU
+      - Camada de Pooling 2 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada Convolucional 3: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 128
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 3 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada de Achatamento (Flatten):
+            Não há parâmetros a serem ajustados.
+      - Camada Densa 1 (Fully Connected):
+            Número de neurônios: 256
+            Função de ativação: ReLU
+      - Camada Densa 2 (Fully Connected):
+            Número de neurônios: 128
+            Função de ativação: ReLU
+      - Camada Densa 3 (Fully Connected):
+            Número de neurônios: 64
+            Função de ativação: ReLU
+      - Camada de Saída (Densa):
+            Número de neurônios: Número de classes
+            Função de ativação: Softmax
+- Complex network
+      - Camada Convolucional 1: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 32
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 1 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada Convolucional 2: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 64
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 2 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada Convolucional 3: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 128
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 3 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada Convolucional 4: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 256
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 4 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada de Achatamento (Flatten):
+            Não há parâmetros a serem ajustados.
+      - Camada Densa 1 (Fully Connected):
+            Número de neurônios: 512
+            Função de ativação: ReLU
+      - Camada Densa 2 (Fully Connected):
+            Número de neurônios: 256
+            Função de ativação: ReLU
+      - Camada Densa 3 (Fully Connected):
+            Número de neurônios: 128
+            Função de ativação: ReLU
+      - Camada Densa 4 (Fully Connected):
+            Número de neurônios: 64
+            Função de ativação: ReLU
+      - Camada de Saída (Densa):
+            Número de neurônios: Número de classes
+            Função de ativação: Softmax
+
+- Very complex network
+      - Camada Convolucional 1: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 32
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 1 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada Convolucional 2: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 64
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 2 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada Convolucional 3: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 128
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 3 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada Convolucional 4: 
+            Tamanho da janela: (3, 3)
+            Número de filtros: 256
+            Função de ativação: ReLU
+            Padding: same
+      - Camada de Pooling 4 (MaxPooling2D):
+            Tamanho da janela: (2, 2)
+      - Camada de Achatamento (Flatten):
+            Não há parâmetros a serem ajustados.
+      - Camada Densa 1 (Fully Connected):
+            Número de neurônios: 256
+            Função de ativação: ReLU
+      - Camada de Normalização em Lote (BatchNormalization):
+            Aplica normalização em lote para acelerar o treinamento e melhorar o desempenho.
+      - Camada Densa 2 (Fully Connected):
+            Número de neurônios: 256
+            Função de ativação: ReLU
+      - Camada de Dropout:
+            Taxa de dropout: 0.3
+            Ajuda a prevenir overfitting descartando aleatoriamente uma fração dos neurônios durante o treinamento.
+      - Camada de Normalização em Lote (BatchNormalization):
+            Aplica normalização em lote.
+      - Camada de Saída (Densa):
+            Número de neurônios: Número de classes
+            Função de ativação: Softmax
+
+
 
 |Dataset        | Melhor Acurácia | Topologia         | Pior Acurácia| Topologia |
 | ------------- | -------------   | -------------     | ------------- | ------------- |
