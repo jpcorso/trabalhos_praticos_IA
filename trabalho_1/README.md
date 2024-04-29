@@ -4,9 +4,12 @@ Arthur Ferreira Ely (00338434), João Pedro Licks Corso (00xxxxxx), Juliana Rodr
 ## Implementação Regressão Linear
 
 ### Valores iniciais
-
+      - b:5
+      - w: 1
+      - alpha: 0.01
+      - iterations: 100
 ### MSE
-
+      8,73
 
 ## TensorFlow
 
