@@ -1,5 +1,5 @@
 # TRABALHO 1 (turma A): Regressão Linear e TensorFlow 
-Arthur Ferreira Ely (00338434), João Pedro Licks Corso (00xxxxxx), Juliana Rodrigues de Vargas (00xxxxxx)
+Arthur Ferreira Ely (00338434), João Pedro Licks Corso (00xxxxxx), Juliana Rodrigues de Vargas (00337553)
 
 ## Implementação Regressão Linear
 
