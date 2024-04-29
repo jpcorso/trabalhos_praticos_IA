@@ -64,7 +64,7 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
 **2) Qual a maior acurácia obtida em cada dataset e quais mudanças fizeram a performance melhorar (ou pior, caso tenha ocorrido piora em relação a alguma performance já avaliada).**
 
 
-- Small network 
+- Small/Simple network 
 
       - Camada Convolucional:
             Tamanho da janela: (3, 3)
@@ -249,8 +249,8 @@ Com base nas constatações acima, quanto maior a complexidade do dataset, maior
 | ------------- | -------------   | -------------     | ------------- | ------------- |
 |MNIST          |99,30%           |complex_network    |97,84%         |small_network|
 |Fashion MNIST  |91,09%           |complex_network    |88,76%         |large_network|
-|CIFAR-10       |xx,xx%           |X topologia        |X topologia    |Alteramos tal e tal e tal e tal coisa e aí a performance ficou muito diferente que a performance anterior
-|CIFAR-100      |xx,xx%           |X topologia        |X topologia    |Alteramos tal e tal e tal e tal coisa e aí a performance ficou muito diferente que a performance anterior
+|CIFAR-10       |72.04%           |complex_network    |10%            |small_network |
+|CIFAR-100      |29,56%           |large_network      |1%             |small_network|
 
 
 
