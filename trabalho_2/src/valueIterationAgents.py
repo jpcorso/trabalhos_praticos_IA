@@ -70,7 +70,11 @@ class ValueIterationAgent(ValueEstimationAgent):
           Compute the Q-value of action in state from the
           value function stored in self.values.
         """
-        "*** YOUR CODE HERE ***"
+
+        for next_state, prob in self.mdp.getTransitionStatesAndProbs(state, action):
+            sum += prob*self.discount*self.getValue(self, state)
+
+        
         util.raiseNotDefined()
 
     #retorna melhor ação
@@ -89,19 +93,18 @@ class ValueIterationAgent(ValueEstimationAgent):
         actions = []
 
         #percorre todas ações para ver seus valores
-        for action in mdp.getPossibleActions(state):
+        for action in self.mdp.getPossibleActions(state):
             sum = 0
             #proximos estados e suas probabilidades
-            for next_state, prob in mdp.getTransitionStatesAndProbs(state,action):
+            for next_state, prob in self.mdp.getTransitionStatesAndProbs(state,action):
                 #aqui aplicamos o somatorio feito no slide para determinar o somatório
-                sum += prob*self.values[next_state]
+                sum += prob*self.discount*self.values[next_state]
 
             actions.append({"action": action, "value": sum})
-
         #aqui nós pegamos a ação de valor máximo
         best_action = max(actions, key=lambda x: x["value"])['action']
 
-        return best_action
+        return best_action  
 
         #util.raiseNotDefined()
 
