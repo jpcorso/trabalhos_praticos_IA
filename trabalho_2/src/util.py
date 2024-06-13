@@ -502,6 +502,7 @@ def getProbability(value, distribution, values):
 
 def flipCoin( p ):
     r = random.random()
+    print(f"caralhoooooooooooooo {r}")
     return r < p
 
 def chooseFromDistribution( distribution ):

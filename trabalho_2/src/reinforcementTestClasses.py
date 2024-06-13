@@ -478,7 +478,7 @@ class QLearningTest(testClasses.TestCase):
                 if action not in qValues:
                     qValues[action] = {}
                 if action in possibleActions:
-                    qValues[action][state] = agent.getQValue(state, action)
+                    qValues[action][state] = agent.getQValue(state, action)      
                 else:
                     qValues[action][state] = None
         valuesPretty = self.prettyValues(values)

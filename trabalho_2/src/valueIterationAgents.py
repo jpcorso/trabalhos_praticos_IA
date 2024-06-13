@@ -36,9 +36,7 @@ class ValueIterationAgent(ValueEstimationAgent):
               mdp.getTransitionStatesAndProbs(state, action)
               mdp.getReward(state, action, nextState)
               mdp.isTerminal(state)
-        """
-
-        
+        """        
         self.mdp = mdp
         self.discount = discount    #fator de desconto (gamma)
         print(f"discount: {self.discount}")
