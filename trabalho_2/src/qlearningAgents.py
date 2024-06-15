@@ -44,7 +44,6 @@ class QLearningAgent(ReinforcementAgent):
         self.epsilon = args['epsilon']
         self.gamma = args['gamma']
         self.alpha = args['alpha']
-        self.actionFn = args['actionFn']
         self.qValues = util.Counter()
         random.seed()
         # print(self.qValues)
@@ -52,13 +51,11 @@ class QLearningAgent(ReinforcementAgent):
 
     def getQValue(self, state, action):
         """
-          Returns Q(state,action)
-          Should return 0.0 if we have never seen a state
-          or the Q node value otherwise
+        Returns Q(state,action)
+        Should return 0.0 if we have never seen a state
+        or the Q node value otherwise
         """
-        return self.qValues[(state, action)]
-     
-    
+        return self.qValues.get((state, action), 0.0)
 
     def computeValueFromQValues(self, state):
         """
@@ -67,7 +64,8 @@ class QLearningAgent(ReinforcementAgent):
           there are no legal actions, which is the case at the
           terminal state, you should return a value of 0.0.
         """
-        if (state == 'TERMINAL_STATE'):
+
+        if ((state == "TERMINAL_STATE") or (self.getLegalActions(state) == [])):
             return 0.0
 
         return max(self.getQValue(state, action) for action in self.getLegalActions(state))
@@ -82,7 +80,7 @@ class QLearningAgent(ReinforcementAgent):
         #percorre todas ações para ver seus valores
 
         best_actions = []
-        if (state is not "TERMINAL_STATE"):
+        if (state != "TERMINAL_STATE"):
             for action in self.getLegalActions(state):
                 if self.getQValue(state, action) == self.computeValueFromQValues(state):
                     best_actions.append(action)
