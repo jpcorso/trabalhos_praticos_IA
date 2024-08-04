@@ -20,8 +20,8 @@ class Nodo:
     def __eq__(self, other):
         return False
 
-    def __hash__(self):
-        return hash(self.estado)
+    #def __hash__(self):
+    #    return hash(self.estado)
 
 def moveNum(s, newPos, num):
     s = s.replace(num, "")    
@@ -77,7 +77,7 @@ def sucessor(estado:str)->Set[Tuple[str,str]]:
             newPos = pos - 3 
             num = estado[newPos] 
             newString = moveNum (estado, pos, num)
-            newString = move(estado, newPos)
+            newString = move(newString, newPos)
             resposta.append(("acima", newString))
 
         if direction == 1:
@@ -109,9 +109,19 @@ def expande(nodo:Nodo)->Set[Nodo]:
     :param nodo: objeto da classe Nodo
     :return:
     """
-    # substituir a linha abaixo pelo seu codigo
-    raise NotImplementedError
 
+    acoes = sucessor(nodo.estado)
+    newNodos = []
+
+    #    def __init__(self, estado:str, pai, acao:str, custo:int):
+
+    for acao in acoes:
+        mov, s = acao
+        newCusto = 1 + nodo.custo
+        newNodo = Nodo(s, nodo, mov, newCusto)
+        newNodos.append(newNodo)
+
+    return newNodos
 
 def astar_hamming(estado:str)->list[str]:
     """
