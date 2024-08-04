@@ -17,12 +17,76 @@ class Nodo:
         self.acao = acao
         self.custo = custo
     
-    def __eq__(self, other):
-        return False
+    #def __eq__(self, other):
+    #    return self.estado == other.estado
+        
+    def isFinal(self): 
+        estadoFinal = "12345678_"
+        return self.estado == estadoFinal
 
-    #def __hash__(self):
-    #    return hash(self.estado)
 
+    def caminha(self):
+        
+        caminho = []
+
+        nodo = self
+        while nodo.pai != None: 
+            caminho.append(nodo)
+            nodo = nodo.pai
+
+        return caminho
+
+        
+    def hammingDistance(self): 
+        #otimizar
+        estadoFinal = "12345678_"        
+        #return sum(1 for a, b in zip(self.estado, estadoFinal) if a != b)
+        return sum(self.estado[i] != estadoFinal[i] for i in range(len(self.estado)))
+
+
+    def manhattanDistance(self):
+        coordenadas = {
+            "1": (0, 0),
+            "2": (0, 1),
+            "3": (0, 2),
+            "4": (1, 0),
+            "5": (1, 1),
+            "6": (1, 2),
+            "7": (2, 0),
+            "8": (2, 1),
+            "_": (2, 2)
+        }
+        manhattan = 0 
+
+        for i in range (9):
+            x,y = coordenadas[self.estado[i]]
+            manhattan = manhattan + abs(x - (i // 3))  + abs(y - (i % 3))
+
+        return manhattan
+
+
+
+
+    #1 trocado com _ 
+    #8-0
+    #   8 mod 3 = 2 + resto 2 = 4 
+
+    #3 trocado com 7
+    #6-1 
+    #   5 mod 3 = 1 + resto 2 = 3 
+    #   da 4
+
+    #1 trocado com 5
+    # 4 - 0 
+    #   4 mod 3 = 1 + resto 1 = 2
+
+    #2 trocado com o 5
+
+    #    3 mod 3 = 1
+    # 5 trocado com o 8
+
+
+# ====================
 def moveNum(s, newPos, num):
     s = s.replace(num, "")    
     new_string = s[:newPos] + num + s[newPos:]
@@ -34,6 +98,9 @@ def move(s, newPos):
     new_string = s[:newPos] + "_" + s[newPos:]
     
     return new_string
+
+
+# =====================
 
 def sucessor(estado:str)->Set[Tuple[str,str]]:
     """
@@ -97,7 +164,6 @@ def sucessor(estado:str)->Set[Tuple[str,str]]:
             newString = move(estado, newPos)
             resposta.append(("esquerda", newString))
 
-    print(resposta)
     return resposta
     
 
@@ -123,6 +189,38 @@ def expande(nodo:Nodo)->Set[Nodo]:
 
     return newNodos
 
+def heuristica_hamming(nodos):
+    index = -1
+
+    melhorNodo = nodos[0]
+    value = melhorNodo.hammingDistance() + melhorNodo.custo
+ 
+    for nodo in nodos:
+        index = index + 1
+        candidato = nodo.hammingDistance()  + nodo.custo
+        if candidato < value:
+            value = candidato
+
+    return index
+
+
+
+def heuristica_manhattan(nodos): 
+    index = -1
+
+    melhorNodo = nodos[0]
+    value = melhorNodo.manhattanDistance() + melhorNodo.custo
+ 
+    for nodo in nodos:
+        index = index + 1
+        candidato = nodo.manhattanDistance()  + nodo.custo
+        if candidato < value:
+            value = candidato
+
+    return index
+ 
+
+
 def astar_hamming(estado:str)->list[str]:
     """
     Recebe um estado (string), executa a busca A* com h(n) = soma das distâncias de Hamming e
@@ -132,9 +230,39 @@ def astar_hamming(estado:str)->list[str]:
     :param estado: str
     :return:
     """
-    # substituir a linha abaixo pelo seu codigo
-    raise NotImplementedError
+    explorados = []
+    fronteira = []
+    #s eh o estado inicial
+    #X conjunto explorados
+    #F fronteira
 
+    fronteira.append(Nodo(estado, None, None, 1))
+
+    #loop
+    while True:
+        if len(fronteira) == 0:
+            return None
+        
+        #aqui muda a heuristica
+        nodoV = fronteira.pop(heuristica_hamming(fronteira))
+
+        if nodoV.isFinal():
+            print ("cheguei no final com o nodo: " + nodoV.estado)
+            return nodoV.caminha()
+        
+        if nodoV not in explorados:
+            explorados.append(nodoV)
+
+            vizinhos = expande(nodoV)
+
+            for vi in vizinhos:
+                if vi not in explorados:
+                    fronteira.append(vi)
+
+
+
+
+   
 
 def astar_manhattan(estado:str)->list[str]:
     """
@@ -145,8 +273,37 @@ def astar_manhattan(estado:str)->list[str]:
     :param estado: str
     :return:
     """
-    # substituir a linha abaixo pelo seu codigo
-    raise NotImplementedError
+    explorados = []
+    fronteira = []
+    #s eh o estado inicial
+    #X conjunto explorados
+    #F fronteira
+
+    fronteira.append(Nodo(estado, None, None, 1))
+
+    #loop
+    while True:
+        if len(fronteira) == 0:
+            return None
+        
+        #aqui muda a heuristica
+        nodoV = fronteira.pop(heuristica_manhattan(fronteira))
+
+        if nodoV.isFinal():
+            print ("cheguei no final com o nodo: " + nodoV.estado)
+            return nodoV.caminha()
+        
+        if nodoV not in explorados:
+            explorados.append(nodoV)
+
+            vizinhos = expande(nodoV)
+
+            for vi in vizinhos:
+                if vi not in explorados:
+                    fronteira.append(vi)
+
+
+
 
 #opcional,extra
 def bfs(estado:str)->list[str]:
