@@ -30,19 +30,16 @@ class Nodo:
         caminho = []
 
         nodo = self
-        while nodo.pai != None: 
-            caminho.append(nodo)
+        while nodo.pai != None:
+            caminho.insert(0, nodo.acao)
             nodo = nodo.pai
-
         return caminho
 
-        
     def hammingDistance(self): 
         #otimizar
         estadoFinal = "12345678_"        
         #return sum(1 for a, b in zip(self.estado, estadoFinal) if a != b)
         return sum(self.estado[i] != estadoFinal[i] for i in range(len(self.estado)))
-
 
     def manhattanDistance(self):
         coordenadas = {
@@ -62,28 +59,10 @@ class Nodo:
             x,y = coordenadas[self.estado[i]]
             manhattan = manhattan + abs(x - (i // 3))  + abs(y - (i % 3))
 
+        print(manhattan)
         return manhattan
 
 
-
-
-    #1 trocado com _ 
-    #8-0
-    #   8 mod 3 = 2 + resto 2 = 4 
-
-    #3 trocado com 7
-    #6-1 
-    #   5 mod 3 = 1 + resto 2 = 3 
-    #   da 4
-
-    #1 trocado com 5
-    # 4 - 0 
-    #   4 mod 3 = 1 + resto 1 = 2
-
-    #2 trocado com o 5
-
-    #    3 mod 3 = 1
-    # 5 trocado com o 8
 
 
 # ====================
@@ -99,7 +78,30 @@ def move(s, newPos):
     
     return new_string
 
+        
+def hammingDistance(s): 
+    estadoFinal = "12345678_"        
+    return sum(s[i] != estadoFinal[i] for i in range(len(s)))
 
+def manhattanDistance(s):
+    coordenadas = {
+        "1": (0, 0),
+        "2": (0, 1),
+        "3": (0, 2),
+        "4": (1, 0),
+        "5": (1, 1),
+        "6": (1, 2),
+        "7": (2, 0),
+        "8": (2, 1),
+        "_": (2, 2)
+    }
+    manhattan = 0 
+
+    for i in range (9):
+        x,y = coordenadas[s[i]]
+        manhattan = manhattan + abs(x - (i // 3))  + abs(y - (i % 3))
+
+    return manhattan
 # =====================
 
 def sucessor(estado:str)->Set[Tuple[str,str]]:
@@ -179,8 +181,6 @@ def expande(nodo:Nodo)->Set[Nodo]:
     acoes = sucessor(nodo.estado)
     newNodos = []
 
-    #    def __init__(self, estado:str, pai, acao:str, custo:int):
-
     for acao in acoes:
         mov, s = acao
         newCusto = 1 + nodo.custo
@@ -189,36 +189,30 @@ def expande(nodo:Nodo)->Set[Nodo]:
 
     return newNodos
 
-def heuristica_hamming(nodos):
-    index = -1
-
-    melhorNodo = nodos[0]
-    value = melhorNodo.hammingDistance() + melhorNodo.custo
- 
-    for nodo in nodos:
-        index = index + 1
-        candidato = nodo.hammingDistance()  + nodo.custo
-        if candidato < value:
-            value = candidato
-
-    return index
-
-
-
-def heuristica_manhattan(nodos): 
-    index = -1
-
-    melhorNodo = nodos[0]
-    value = melhorNodo.manhattanDistance() + melhorNodo.custo
- 
-    for nodo in nodos:
-        index = index + 1
-        candidato = nodo.manhattanDistance()  + nodo.custo
-        if candidato < value:
-            value = candidato
-
-    return index
- 
+#def heuristica_hamming(nodos):
+#    melhorNodo = nodos[0]
+#    value = melhorNodo.hammingDistance() + melhorNodo.custo
+# 
+#    for nodo in nodos:
+#        candidato = nodo.hammingDistance()  + nodo.custo
+#        if candidato < value:
+#            value = candidato
+#
+#    return nodo
+#
+#
+#
+#def heuristica_manhattan(nodos): 
+#    melhorNodo = nodos[0]
+#    value = melhorNodo.manhattanDistance() + melhorNodo.custo
+# 
+#    for nodo in nodos:
+#        candidato = nodo.manhattanDistance()  + nodo.custo
+#        if candidato < value:
+#            value = candidato
+#
+#    return nodo
+# 
 
 
 def astar_hamming(estado:str)->list[str]:
@@ -230,39 +224,39 @@ def astar_hamming(estado:str)->list[str]:
     :param estado: str
     :return:
     """
-    explorados = []
-    fronteira = []
-    #s eh o estado inicial
-    #X conjunto explorados
-    #F fronteira
 
-    fronteira.append(Nodo(estado, None, None, 1))
+    fronteiraDict = {
+    }
+    explorados = set()
 
-    #loop
+    fronteiraDict[hammingDistance(estado)+1] = [Nodo(estado, None, None, 1)]
+
     while True:
-        if len(fronteira) == 0:
+
+        if len(fronteiraDict) == 0:
             return None
         
-        #aqui muda a heuristica
-        nodoV = fronteira.pop(heuristica_hamming(fronteira))
+        index = min(fronteiraDict.keys())
+        nodoV = fronteiraDict[index].pop(0)
+        if len(fronteiraDict[index]) == 0:
+            fronteiraDict.pop(index)
 
         if nodoV.isFinal():
-            print ("cheguei no final com o nodo: " + nodoV.estado)
             return nodoV.caminha()
         
-        if nodoV not in explorados:
-            explorados.append(nodoV)
+        if nodoV.estado not in explorados:
+            explorados.add(nodoV.estado)
 
             vizinhos = expande(nodoV)
 
             for vi in vizinhos:
-                if vi not in explorados:
-                    fronteira.append(vi)
+                if vi.estado not in explorados:
+                    if (vi.custo + hammingDistance(vi.estado)) not in fronteiraDict:
+                        fronteiraDict[vi.custo + hammingDistance(vi.estado)] = [vi]
+                    
+                    else:
+                        fronteiraDict[vi.custo + hammingDistance(vi.estado)].append(vi)
 
-
-
-
-   
 
 def astar_manhattan(estado:str)->list[str]:
     """
@@ -273,36 +267,38 @@ def astar_manhattan(estado:str)->list[str]:
     :param estado: str
     :return:
     """
-    explorados = []
-    fronteira = []
-    #s eh o estado inicial
-    #X conjunto explorados
-    #F fronteira
 
-    fronteira.append(Nodo(estado, None, None, 1))
+    fronteiraDict = {
+    }
+    explorados = set()
 
-    #loop
+    fronteiraDict[manhattanDistance(estado)+1] = [Nodo(estado, None, None, 1)]
+
     while True:
-        if len(fronteira) == 0:
+
+        if len(fronteiraDict) == 0:
             return None
         
-        #aqui muda a heuristica
-        nodoV = fronteira.pop(heuristica_manhattan(fronteira))
+        index = min(fronteiraDict.keys())
+        nodoV = fronteiraDict[index].pop(0)
+        if len(fronteiraDict[index]) == 0:
+            fronteiraDict.pop(index)
 
         if nodoV.isFinal():
-            print ("cheguei no final com o nodo: " + nodoV.estado)
             return nodoV.caminha()
         
-        if nodoV not in explorados:
-            explorados.append(nodoV)
+        if nodoV.estado not in explorados:
+            explorados.add(nodoV.estado)
 
             vizinhos = expande(nodoV)
 
             for vi in vizinhos:
-                if vi not in explorados:
-                    fronteira.append(vi)
-
-
+                if vi.estado not in explorados:
+                    if (vi.custo + manhattanDistance(vi.estado)) not in fronteiraDict:
+                        fronteiraDict[vi.custo + manhattanDistance(vi.estado)] = [vi]
+                    
+                    else:
+                        fronteiraDict[vi.custo + manhattanDistance(vi.estado)].append(vi)
 
 
 #opcional,extra
