@@ -11,5 +11,5 @@ Juliana Rodrigues de Vargas: 00337553 - Turma A
 ### Testes para 2_3541687
 |Algoritmo | Nodos expandidos | Tempo  | Custo| 
 | ------------- | ------------- | ------------- | ------------- | 
-|Distancia de Hamming          |xx        |tempo    |custo    |
-|Distancia de Manhattan        |xx         |tempo    |custo    |
+|Distancia de Hamming      |14083  |0.258s    |24  |
+|Distancia de Manhattan    |1820   |0.067s    |24  |
