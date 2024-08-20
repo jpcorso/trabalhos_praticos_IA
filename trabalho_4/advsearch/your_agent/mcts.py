@@ -21,6 +21,7 @@ def make_move(state) -> Tuple[int, int]:
     # o codigo abaixo retorna uma jogada ilegal
     # Remova-o e coloque a sua implementacao do MCTS
 
+
     return (-1, -1)
 
 

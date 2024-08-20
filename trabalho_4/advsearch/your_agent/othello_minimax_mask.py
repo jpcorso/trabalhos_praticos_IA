@@ -37,16 +37,34 @@ def make_move(state) -> Tuple[int, int]:
     # Remova-o e coloque uma chamada para o minimax_move (que vc implementara' no modulo minimax).
     # A chamada a minimax_move deve receber sua funcao evaluate como parametro.
 
-    return random.choice([(2, 3), (4, 5), (5, 4), (3, 2)])
+    return minimax_move(state, 4, evaluate_mask)
 
 
-def evaluate_mask(state, player:str) -> float:
+def evaluate_mask(state, player: str) -> float:
     """
     Evaluates an othello state from the point of view of the given player. 
     If the state is terminal, returns its utility. 
     If non-terminal, returns an estimate of its value based on the positional value of the pieces.
-    You must use the EVAL_TEMPLATE above to compute the positional value of the pieces.
     :param state: state to evaluate (instance of GameState)
     :param player: player to evaluate the state for (B or W)
     """
-    return 0   # substitua pelo seu codigo
+    board_tiles = state.board.tiles
+    player_value = 1 if player == 'B' else -1
+    opponent_value = -player_value
+
+    # Initialize the evaluation score
+    evaluation_score = 0
+
+    # Iterate over the board and compute the evaluation score
+    for row, row_tiles in enumerate(board_tiles):
+        for col, tile in enumerate(row_tiles):
+            tile_value = EVAL_TEMPLATE[row][col]
+            if tile == player:
+                evaluation_score += player_value * tile_value
+            elif tile != '.':
+                evaluation_score += opponent_value * tile_value
+
+    return evaluation_score
+
+
+
